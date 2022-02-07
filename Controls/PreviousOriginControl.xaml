@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Leo.SdlxliffEditor.Controls.PreviousOriginControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+             xmlns:c="clr-namespace:Leo.SdlxliffEditor.Converters"
+             xmlns:viewmodels="clr-namespace:Leo.SdlxliffEditor.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:SegmentPairViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="PreviousOriginUI">
+    <Grid>
+        <Grid.Resources>
+            <c:HumanizeStringConverter x:Key="HumanizeStringConverter" />
+            <c:BooleanToVisibilityHiddenConverter x:Key="BooleanToVisibilityHiddenConverter" />
+        </Grid.Resources>
+        <Expander Margin="{adonisUi:Space 1}" ExpandDirection="Right" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"
+                  Visibility="{Binding IsOriginVisible, Converter={StaticResource BooleanToVisibilityHiddenConverter}}">
+            <ItemsControl ItemsSource="{Binding PreviousOrigin}" Height="Auto">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Grid.IsSharedSizeScope="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="FirstColumn"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition SharedSizeGroup="ThirdColumn"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Key, Converter={StaticResource HumanizeStringConverter}}" />
+                            <TextBlock Grid.Column="1" Text=": " />
+                            <TextBlock Grid.Column="2" Text="{Binding Value}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Expander>
+    </Grid>
+</UserControl>

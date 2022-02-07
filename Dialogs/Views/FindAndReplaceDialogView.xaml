@@ -1,0 +1,55 @@
+﻿<Window x:Class="Leo.SdlxliffEditor.Dialogs.Views.FindAndReplaceDialogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewmodels="clr-namespace:Leo.SdlxliffEditor.Dialogs.ViewModels"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="CanMinimize"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=viewmodels:FindAndReplaceDialogViewModel}"
+        Title="{StaticResource FindAndReplace}" Height="350" Width="650">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=SearchTextBox}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{StaticResource TextToFind}" Margin="{adonisUi:Space}" />
+        <TextBox x:Name="SearchTextBox" Grid.Row="1" Grid.Column="0" Margin="{adonisUi:Space}"
+                 Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding FindNextCommand}" Key="Enter" />
+            </TextBox.InputBindings>
+        </TextBox>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{StaticResource TextToReplace}" Margin="{adonisUi:Space}" />
+        <TextBox Grid.Row="3" Grid.Column="0" Margin="{adonisUi:Space}" Text="{Binding ReplaceText}" />
+        <Button Grid.Row="1" Grid.Column="1" Content="{StaticResource FindPrevious}" Command="{Binding FindPreviousCommand}" Margin="{adonisUi:Space}" />
+        <Button Grid.Row="2" Grid.Column="1" Content="{StaticResource FindNext}" Command="{Binding FindNextCommand}" Margin="{adonisUi:Space}" />
+        <Button Grid.Row="3" Grid.Column="1" Content="{StaticResource Replace}" Command="{Binding ReplaceCommand}" Margin="{adonisUi:Space}" />
+        <Button x:Name="ReplaceAllButton" Grid.Row="4" Grid.Column="1" Content="{StaticResource ReplaceAll}" Command="{Binding ReplaceAllCommand}" Margin="{adonisUi:Space}" />
+        <ComboBox Grid.Row="4" Grid.Column="0" Margin="{adonisUi:Space}" SelectedIndex="{Binding SelectedIndex}">
+            <ComboBoxItem Content="{StaticResource Target}" IsSelected="True" />
+            <ComboBoxItem Content="{StaticResource Source}" />
+        </ComboBox>
+        <Expander Grid.Row="5" Grid.Column="0" Header="{StaticResource Options}" Margin="{adonisUi:Space}" IsExpanded="True">
+            <StackPanel Margin="{adonisUi:Space}">
+                <CheckBox Content="{StaticResource CaseSensitive}" Margin="{adonisUi:Space}" IsChecked="{Binding IsCaseSensitive}" />
+                <CheckBox Content="{StaticResource MatchWholeWord}" Margin="{adonisUi:Space}" IsChecked="{Binding IsMatchWholeWord}" />
+                <CheckBox Content="{StaticResource SkipLockedSegments}" Margin="{adonisUi:Space}" IsChecked="{Binding IsSkipLockedSegments}" />
+                <CheckBox Content="{StaticResource RegularExpression}" Margin="{adonisUi:Space}" IsChecked="{Binding UseRegularExpressions}" />
+            </StackPanel>
+        </Expander>
+        <Button Grid.Row="5" Grid.Column="1" Height="{Binding ElementName=ReplaceAllButton, Path=ActualHeight}"
+                Content="{StaticResource Close}" IsCancel="True" Command="{Binding CloseCommand}" Margin="{adonisUi:Space}" />
+    </Grid>
+</Window>

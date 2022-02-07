@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Leo.SdlxliffEditor.Controls.MatchStatusControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+             xmlns:c="clr-namespace:Leo.SdlxliffEditor.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <c:TranslationMatchStatusConverter x:Key="TranslationMatchStatusConverter" />
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="1" Margin="{adonisUi:Space 1, 0}" Padding="3" HorizontalAlignment="Center" Height="25" Width="40">
+        <Border.Resources>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.AlertBrush}}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Text, ElementName=MatchStatus}" Value="PM">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.Layer2HighlightBorderBrush}}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Text, ElementName=MatchStatus}" Value="NMT">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.Layer2InteractionBrush}}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Text, ElementName=MatchStatus}" Value="AT">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.Layer2InteractionBorderBrush}}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Text, ElementName=MatchStatus}" Value="CM">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.SuccessBrush}}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Text, ElementName=MatchStatus}" Value="100%">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static adonisUi:Brushes.SuccessBrush}}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Resources>
+        <TextBlock x:Name="MatchStatus" HorizontalAlignment="Center" Foreground="{DynamicResource {x:Static adonisUi:Brushes.AccentForegroundBrush}}">
+            <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource TranslationMatchStatusConverter}">
+                    <Binding Path="MatchPercentage" />
+                    <Binding Path="Origin" />
+                    <Binding Path="TextMatch" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </Border>
+</UserControl>

@@ -1,0 +1,22 @@
+﻿<Application x:Class="Leo.SdlxliffEditor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="OnStartup" Exit="OnExit" DispatcherUnhandledException="OnDispatcherUnhandledException">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/AdonisUI;component/ColorSchemes/Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/AdonisUI.ClassicTheme;component/Resources.xaml" />
+                <ResourceDictionary Source="/Resources/ListBoxStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Strings.xaml" />
+                <ResourceDictionary Source="/Resources/TreeViewItemStyle.xaml" />
+                <ResourceDictionary Source="/Resources/ExpanderStyle.xaml" />
+                <ResourceDictionary Source="/Resources/ExpanderStyle.xaml" />
+                <ResourceDictionary Source="/Resources/ProgressBarStyle.xaml" />
+                <ResourceDictionary Source="/Resources/AutoCompleteStyle.xaml" />
+                <ResourceDictionary Source="/Resources/RichTextBoxStyle.xaml" />
+                <ResourceDictionary Source="/Resources/DataGridCellStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

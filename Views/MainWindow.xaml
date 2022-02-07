@@ -1,0 +1,97 @@
+﻿<adonisControls:AdonisWindow x:Class="Leo.SdlxliffEditor.Views.MainWindow"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                             xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+                             xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+                             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+                             xmlns:viewModels="clr-namespace:Leo.SdlxliffEditor.ViewModels"
+                             xmlns:views="clr-namespace:Leo.SdlxliffEditor.Views"
+                             d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel}"
+                             mc:Ignorable="d"
+                             Title="{StaticResource AppTitle}" Height="450" Width="800" IconVisibility="Collapsed">
+    <adonisControls:AdonisWindow.Style>
+        <Style TargetType="adonisControls:AdonisWindow" BasedOn="{StaticResource {x:Type adonisControls:AdonisWindow}}" />
+    </adonisControls:AdonisWindow.Style>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="{DynamicResource {x:Static adonisUi:Brushes.Layer1BackgroundBrush}}"
+                adonisExtensions:LayerExtension.Layer="1"
+                CornerRadius="4"
+                VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Style="{DynamicResource {x:Static adonisUi:Styles.AccentToolbarButton}}"
+                        Grid.Column="0" Content="{StaticResource Editor}"
+                        Command="{Binding NavigateEditorViewCommand}" />
+                <Button Style="{DynamicResource {x:Static adonisUi:Styles.AccentToolbarButton}}"
+                        Grid.Column="1" Content="{StaticResource QA}"
+                        Command="{Binding NavigateQAViewCommand}" />
+                <Button Style="{DynamicResource {x:Static adonisUi:Styles.AccentToolbarButton}}"
+                        Grid.Column="2" Content="{StaticResource BatchTasks}"
+                        Command="{Binding NavigateBatchTaskViewCommand}" />
+                <Button Style="{DynamicResource {x:Static adonisUi:Styles.AccentToolbarButton}}"
+                        Grid.Column="3" Content="{StaticResource Settings}"
+                        Command="{Binding NavigateSettingsViewCommand}" />
+            </Grid>
+        </Border>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:EditorLayoutViewModel}">
+                    <views:EditorLayoutView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:DragAndDropFileViewModel}">
+                    <views:DragAndDropFileView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:EditorViewModel}">
+                    <views:EditorView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:QAViewModel}">
+                    <views:QAView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:BatchTaskViewModel}">
+                    <views:BatchTaskView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+                    <views:SettingsView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+        <Grid Grid.Row="1">
+            <Grid.Style>
+                <Style TargetType="FrameworkElement">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Border Background="{DynamicResource {x:Static adonisUi:Brushes.Layer0BackgroundBrush}}"
+                                    Opacity="0.5" />
+
+            <ContentControl ContentTemplate="{DynamicResource {x:Static adonisUi:Templates.LoadingCircle}}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Width="{adonisUi:Space 5}"
+                                            Height="{adonisUi:Space 5}"
+                                            Focusable="False" />
+        </Grid>
+    </Grid>
+</adonisControls:AdonisWindow>

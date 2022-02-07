@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Leo.SdlxliffEditor.Controls.ConfirmationLevelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+             xmlns:c="clr-namespace:Leo.SdlxliffEditor.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <c:ConfirmationLevelToSymbolConverter x:Key="ConfirmationLevelToSymbolConverter" />
+        <c:ConfirmationLevelToSymbolSupplementaryConverter x:Key="ConfirmationLevelToSymbolSupplementaryConverter" />
+        <c:ComfirmationLevelToStringConverter x:Key="ConfirmationLevelToStringConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Label FontFamily="Segoe MDL2 Assets" Padding="{adonisUi:Space}" HorizontalContentAlignment="Center"
+                       Content="{Binding ConfirmationLevel, Converter={StaticResource ConfirmationLevelToSymbolConverter}}" />
+        <Label FontFamily="Segoe MDL2 Assets" Padding="{adonisUi:Space}" HorizontalContentAlignment="Center"
+                       Content="{Binding ConfirmationLevel, Converter={StaticResource ConfirmationLevelToSymbolSupplementaryConverter}}"
+                       ToolTip="{Binding ConfirmationLevel, Converter={StaticResource ConfirmationLevelToStringConverter}}">
+            <Label.Resources>
+                <Style TargetType="Label">
+                    <Style.Triggers>
+                        <Trigger Property="Content" Value="&#xEA83;">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static adonisUi:Brushes.ErrorBrush}}" />
+                        </Trigger>
+                        <Trigger Property="Content" Value="&#xF1D8;">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static adonisUi:Brushes.SuccessBrush}}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Resources>
+        </Label>
+    </Grid>
+</UserControl>

@@ -1,0 +1,32 @@
+﻿<Window x:Class="Leo.SdlxliffEditor.Dialogs.Views.SettingsDialogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisUI="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewModels="clr-namespace:Leo.SdlxliffEditor.Dialogs.ViewModels"
+        xmlns:views="clr-namespace:Leo.SdlxliffEditor.Dialogs.Views"
+        mc:Ignorable="d"
+        Title="{Binding Title}"
+        SizeToContent="WidthAndHeight"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Content="{Binding}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:HideSegmentsSettingsViewModel}">
+                    <views:HideSegmentsSettingsView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="{StaticResource OK}" IsDefault="True" Margin="{adonisUI:Space}" Click="OnOkButtonClick" />
+            <Button Content="{StaticResource Cancel}" IsDefault="True" Margin="{adonisUI:Space}" Click="OnCancelButtonClick" />
+        </StackPanel>
+    </Grid>
+</Window>

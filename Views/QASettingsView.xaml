@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Leo.SdlxliffEditor.Views.QASettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+             xmlns:viewmodels="clr-namespace:Leo.SdlxliffEditor.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewmodels:QASettingsViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Column="0" Header="{StaticResource CheckGroups}" BorderThickness="1">
+            <ListBox ItemsSource="{Binding QACheckItems}"
+                     adonisExtensions:ScrollViewerExtension.VerticalScrollBarExpansionMode="AlwaysExpand"
+                     IsSynchronizedWithCurrentItem="True">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Grid.Column="0" IsChecked="{Binding IsChecked}" Click="OnCheckBoxClick" />
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="{StaticResource CheckDetails}" BorderThickness="0, 1, 0, 1" Margin="0, 0, -1, 0">
+            <TreeView ItemsSource="{Binding QACheckItems/Children}">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="True" />
+                        <Setter Property="Margin" Value="-5, 0, 0, 0" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Grid.Column="0" IsChecked="{Binding IsChecked}" Margin="0, 5, 0, 5" />
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" TextWrapping="Wrap" Margin="0, 5, 0, 5" />
+                        </Grid>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </GroupBox>
+        <GroupBox Grid.Column="2" Header="{StaticResource Options}" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <CheckBox Grid.Row="0" Content="{StaticResource ExcludeLockedSegments}" IsChecked="{Binding ExcludeLockedSegments}" Margin="{adonisUi:Space}" />
+                <CheckBox Grid.Row="1" Content="{StaticResource ExcludeContextMatchSegments}" IsChecked="{Binding ExcludeContextMatchSegments}" Margin="{adonisUi:Space}" />
+                <CheckBox Grid.Row="2" Content="{StaticResource ExcludePerfectMatchSegments}" IsChecked="{Binding ExcludePerfectMatchSegments}" Margin="{adonisUi:Space}" />
+                <CheckBox Grid.Row="3" Content="{StaticResource ExcludeOneHundredPercentMatchSegments}" IsChecked="{Binding CaseSensitive}" Margin="{adonisUi:Space}" />
+                <CheckBox Grid.Row="4" Content="{StaticResource ExcludeEmptySegments}" IsChecked="{Binding ExcludeEmptySegments}" Margin="{adonisUi:Space}" />
+                <CheckBox Grid.Row="5" Content="{StaticResource CaseSensitive}" Margin="{adonisUi:Space}" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>
